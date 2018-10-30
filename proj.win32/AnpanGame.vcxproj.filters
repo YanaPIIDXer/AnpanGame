@@ -140,6 +140,9 @@
     <ClInclude Include="..\Classes\GameConfig.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\APIResponse.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
