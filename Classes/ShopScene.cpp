@@ -6,6 +6,7 @@
 #include "ShopItem.h"
 #include "ScriptObject.h"
 #include "CCLuaEngine.h"
+#include "GameConfig.h"
 
 // ↓ラベルで全角文字を使えるようにするためのもの
 #pragma execution_character_set("utf-8")
@@ -16,7 +17,7 @@ bool ShopScene::init()
 	if (!Scene::init()) { return false; }
 
 	// ポイント表示ラベル
-	pPointLabel = Label::createWithTTF("Point:0", "fonts/Marker Felt.ttf", 24);
+	pPointLabel = Label::createWithTTF("Point:0", GameConfig::FontPath, 24);
 	pPointLabel->setPosition(Vec2(500, 450));
 	UpdatePointLabel(UserData::GetPoint());
 	addChild(pPointLabel);
