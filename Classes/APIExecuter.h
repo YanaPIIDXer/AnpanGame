@@ -10,6 +10,8 @@
 using namespace cocos2d;
 using namespace cocos2d::network;
 
+#include "APIResponse.h"
+
 class HttpConnection;
 class ShopItem;
 class JsonHelper;
@@ -23,7 +25,7 @@ class APIExecuter
 public:
 
 	// 認証.
-	static void Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback);
+	static void Auth(Node *pParent, const std::string &Id, const std::function<void(const AuthResponse &)> &Callback);
 
 	// ショップ情報.
 	static void ShopData(Node *pParent, const std::function<void(const std::vector<ShopItem *> &)> &Callback);

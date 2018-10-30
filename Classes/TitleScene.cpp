@@ -5,6 +5,7 @@
 #include "IdManager.h"
 #include "APIExecuter.h"
 #include "GameConfig.h"
+#include "APIResponse.h"
 
 // èâä˙âª.
 bool TitleScene::init()
@@ -48,13 +49,13 @@ bool TitleScene::init()
 void TitleScene::RequestAuth()
 {
 	IdManager IdMgr;
-	APIExecuter::Auth(this, IdMgr.GetId(), CC_CALLBACK_3(TitleScene::OnAuthSuccess, this));
+	APIExecuter::Auth(this, IdMgr.GetId(), CC_CALLBACK_1(TitleScene::OnAuthSuccess, this));
 }
 
 // îFèÿÇ…ê¨å˜ÇµÇΩÅB
-void TitleScene::OnAuthSuccess(const std::string &Id, int Point, int HighScore)
+void TitleScene::OnAuthSuccess(const AuthResponse &Response)
 {
-	UserData::Set(Id, Point, HighScore);
+	UserData::Set(Response.Id, Response.Point, Response.HighScore);
 
 	MoveToNextScene();
 }

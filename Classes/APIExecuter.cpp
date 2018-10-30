@@ -7,17 +7,18 @@
 #include "ErrorDialog.h"
 
 // îFèÿ.
-void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
+void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const AuthResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Auth, [Id](HttpConnection *pConnection)
 	{
 		pConnection->AddParameter("Id", Id);
 	}, [Callback](const JsonHelper &Json)
 	{
-		std::string Id = Json.GetString("Id");
-		int Point = Json.GetInt("Point");
-		int HighScore = Json.GetInt("HighScore");
-		Callback(Id, Point, HighScore);
+		AuthResponse Response;
+		Response.Id = Json.GetString("Id");
+		Response.Point = Json.GetInt("Point");
+		Response.HighScore = Json.GetInt("HighScore");
+		Callback(Response);
 	});
 }
 
