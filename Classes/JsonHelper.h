@@ -16,6 +16,9 @@ public:
 	// コンストラクタ
 	JsonHelper(std::vector<char> *pBuffer);
 	JsonHelper(Json *pInJson) { pJson = pInJson; }
+
+	// 有効か？
+	bool IsValid() const { return (pJson != nullptr); }
 	
 	// Int取得.
 	int GetInt(const std::string &Name) const;
