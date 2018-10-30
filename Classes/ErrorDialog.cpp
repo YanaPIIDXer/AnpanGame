@@ -41,6 +41,7 @@ bool ErrorDialog::init()
 		TitleScene *pScene = TitleScene::create();
 		Director::getInstance()->replaceScene(pScene);
 	});
+	addChild(pButton);
 
 	return true;
 }
