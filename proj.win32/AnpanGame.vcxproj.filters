@@ -69,6 +69,9 @@
     <ClCompile Include="..\Classes\UserData.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ErrorDialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -126,6 +129,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\UserData.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ErrorDialog.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

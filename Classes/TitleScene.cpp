@@ -48,7 +48,7 @@ bool TitleScene::init()
 void TitleScene::RequestAuth()
 {
 	IdManager IdMgr;
-	APIExecuter::Auth(IdMgr.GetId(), CC_CALLBACK_1(TitleScene::OnAuthSuccess, this));
+	APIExecuter::Auth(this, IdMgr.GetId(), CC_CALLBACK_1(TitleScene::OnAuthSuccess, this));
 }
 
 // îFèÿÇ…ê¨å˜ÇµÇΩÅB

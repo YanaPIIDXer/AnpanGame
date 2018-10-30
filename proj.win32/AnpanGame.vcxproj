@@ -157,6 +157,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\APIExecuter.cpp" />
     <ClCompile Include="..\Classes\APIURLs.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\ErrorDialog.cpp" />
     <ClCompile Include="..\Classes\FlashAnimationComponent.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HttpConnection.cpp" />
@@ -178,6 +179,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\APIExecuter.h" />
     <ClInclude Include="..\Classes\APIURLs.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\ErrorDialog.h" />
     <ClInclude Include="..\Classes\FlashAnimationComponent.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HttpConnection.h" />

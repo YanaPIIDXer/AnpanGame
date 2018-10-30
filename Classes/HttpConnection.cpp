@@ -1,4 +1,5 @@
 #include "HttpConnection.h"
+#include "ErrorDialog.h"
 
 // コンストラクタ
 HttpConnection::HttpConnection(const std::string &URL)
@@ -59,9 +60,19 @@ HttpConnection *HttpConnection::create(const std::string &URL)
 // レスポンス受信.
 void HttpConnection::OnResponse(HttpClient *pClient, HttpResponse *pResponse)
 {
-	Callback(pResponse);
-
 	auto *pParent = getParent();
+
+	if (pResponse->isSucceed())
+	{
+		Callback(pResponse);
+	}
+	else if(pParent != nullptr)
+	{
+		// エラーダイアログ
+		ErrorDialog *pDialog = ErrorDialog::create();
+		pParent->addChild(pDialog);
+	}
+
 	if (pParent != nullptr)
 	{
 		pParent->removeChild(this);

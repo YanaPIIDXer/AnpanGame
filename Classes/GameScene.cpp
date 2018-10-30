@@ -93,7 +93,7 @@ void GameScene::OnTimer(CallbackTimer * pInstance)
 // リザルト要求.
 void GameScene::RequestResult()
 {
-	APIExecuter::Result(TotalScore, CC_CALLBACK_1(GameScene::OnResultSuccess, this));
+	APIExecuter::Result(this, TotalScore, CC_CALLBACK_1(GameScene::OnResultSuccess, this));
 }
 
 // リザルト要求に成功した
