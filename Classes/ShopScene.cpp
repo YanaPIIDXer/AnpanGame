@@ -45,7 +45,7 @@ bool ShopScene::init()
 // ショップ情報リクエスト
 void ShopScene::RequestShopData()
 {
-	APIExecuter::ShopData(CC_CALLBACK_1(ShopScene::OnResponseShopData, this));
+	APIExecuter::ShopData(this, CC_CALLBACK_1(ShopScene::OnResponseShopData, this));
 }
 
 // ショップ情報リクエストコールバック
@@ -116,7 +116,7 @@ void ShopScene::OnPressedStartButton(Ref *pSender)
 			ItemIds.push_back(pItem->GetItemData().Id);
 		}
 	}
-	APIExecuter::Start(ItemIds, CC_CALLBACK_1(ShopScene::OnStartSuccess, this));
+	APIExecuter::Start(this, ItemIds, CC_CALLBACK_1(ShopScene::OnStartSuccess, this));
 }
 
 // 開始ＡＰＩコールバック
