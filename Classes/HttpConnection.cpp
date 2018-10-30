@@ -59,9 +59,17 @@ HttpConnection *HttpConnection::create(const std::string &URL)
 // レスポンス受信.
 void HttpConnection::OnResponse(HttpClient *pClient, HttpResponse *pResponse)
 {
-	Callback(pResponse);
-
 	auto *pParent = getParent();
+
+	if (pResponse->isSucceed())
+	{
+		Callback(pResponse);
+	}
+	else if(pParent != nullptr)
+	{
+		// @TODO:pParentに対してエラーダイアログを表示.
+	}
+
 	if (pParent != nullptr)
 	{
 		pParent->removeChild(this);
