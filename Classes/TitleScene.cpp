@@ -1,7 +1,6 @@
 #include "TitleScene.h"
 #include "FlashAnimationComponent.h"
 #include "ShopScene.h"
-#include "JsonHelper.h"
 #include "UserData.h"
 #include "IdManager.h"
 #include "APIExecuter.h"
