@@ -12,6 +12,7 @@ using namespace cocos2d::network;
 
 class HttpConnection;
 class ShopItem;
+class JsonHelper;
 
 /**
  * WebAPI‚ğ’@‚­ƒNƒ‰ƒX
@@ -36,7 +37,7 @@ public:
 private:
 
 	// HttpConnection‚ğ¶¬.
-	static HttpConnection *CreateConnection(Node *pParent, const std::string &URL);
+	static void CreateConnection(Node *pParent, const std::string &URL, const std::function<void(HttpConnection *)> &CreatedCallback, const std::function<void(const JsonHelper &)> &JsonCallback);
 
 };
 
