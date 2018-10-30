@@ -8,11 +8,11 @@
 // 認証.
 void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
 {
-	auto *pConnection = CreateConnection(pParent, APIURLs::Auth);
-	pConnection->AddParameter("Id", Id);
-	pConnection->Send([Callback](HttpResponse *pResponse)
+	CreateConnection(pParent, APIURLs::Auth, [Id](HttpConnection *pConnection)
 	{
-		JsonHelper Json(pResponse->getResponseData());
+		pConnection->AddParameter("Id", Id);
+	}, [Callback](const JsonHelper &Json)
+	{
 		std::string Id = Json.GetString("Id");
 		int Point = Json.GetInt("Point");
 		int HighScore = Json.GetInt("HighScore");
@@ -23,16 +23,15 @@ void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function
 // ショップ情報.
 void APIExecuter::ShopData(Node *pParent, const std::function<void(const std::vector<ShopItem *> &)> &Callback)
 {
-	auto *pConnection = CreateConnection(pParent, APIURLs::ShopData);
-	pConnection->Send([Callback](HttpResponse *pResponse) {
+	CreateConnection(pParent, APIURLs::ShopData, [](HttpConnection *pConnection){}, [Callback](const JsonHelper &Json)
+	{
 		std::vector<ShopItem *> ItemList;
-		JsonHelper ShopInfo(pResponse->getResponseData());
-		int Length = ShopInfo.GetArrayLength();
+		int Length = Json.GetArrayLength();
 		for (int i = 0; i < Length; i++)
 		{
-			JsonHelper Item = ShopInfo[i];
+			JsonHelper Item = Json[i];
 			ShopItem *pItem = ShopItem::create(Item);
-			
+
 			ItemList.push_back(pItem);
 		}
 
@@ -43,15 +42,15 @@ void APIExecuter::ShopData(Node *pParent, const std::function<void(const std::ve
 // 開始.
 void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(int, const std::string &)> &Callback)
 {
-	auto *pConnection = CreateConnection(pParent, APIURLs::Start);
-	pConnection->AddParameter("Id", UserData::GetId());
-	for (int i = 0; i < ItemIds.size(); i++)
+	CreateConnection(pParent, APIURLs::Start, [ItemIds](HttpConnection *pConnection)
 	{
-		pConnection->AddParameter("ItemIds[]", ItemIds[i]);
-	}
-	pConnection->Send([Callback](HttpResponse *pResponse)
+		pConnection->AddParameter("Id", UserData::GetId());
+		for (int i = 0; i < ItemIds.size(); i++)
+		{
+			pConnection->AddParameter("ItemIds[]", ItemIds[i]);
+		}
+	}, [Callback](const JsonHelper &Json)
 	{
-		JsonHelper Json(pResponse->getResponseData());
 		int Point = Json.GetInt("Point");
 		std::string Script = Json.GetString("Script");
 		Callback(Point, Script);
@@ -61,12 +60,12 @@ void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const st
 // リザルト
 void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int, int)> &Callback)
 {
-	auto *pConnection = CreateConnection(pParent, APIURLs::Result);
-	pConnection->AddParameter("Id", UserData::GetId());
-	pConnection->AddParameter("Score", Score);
-	pConnection->Send([Callback](HttpResponse *pResponse)
+	CreateConnection(pParent, APIURLs::Result, [Score](HttpConnection *pConnection)
 	{
-		JsonHelper Json(pResponse->getResponseData());
+		pConnection->AddParameter("Id", UserData::GetId());
+		pConnection->AddParameter("Score", Score);
+	}, [Callback](const JsonHelper &Json)
+	{
 		int AfterPoint = Json.GetInt("Point");
 		int HighScore = Json.GetInt("HighScore");
 
@@ -76,9 +75,15 @@ void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int,
 
 
 // HttpConnectionを生成.
-HttpConnection *APIExecuter::CreateConnection(Node *pParent, const std::string &URL)
+void APIExecuter::CreateConnection(Node *pParent, const std::string &URL, const std::function<void(HttpConnection *)> &CreatedCallback, const std::function<void(const JsonHelper &)> &JsonCallback)
 {
 	auto *pConnection = HttpConnection::create(URL);
 	pParent->addChild(pConnection);
-	return pConnection;
+	CreatedCallback(pConnection);
+	pConnection->Send([pParent, JsonCallback](HttpResponse *pResponse)
+	{
+		JsonHelper Json(pResponse->getResponseData());
+
+		JsonCallback(Json);
+	});
 }
