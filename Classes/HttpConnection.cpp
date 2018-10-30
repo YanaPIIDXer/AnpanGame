@@ -1,4 +1,5 @@
 #include "HttpConnection.h"
+#include "ErrorDialog.h"
 
 // コンストラクタ
 HttpConnection::HttpConnection(const std::string &URL)
@@ -67,7 +68,9 @@ void HttpConnection::OnResponse(HttpClient *pClient, HttpResponse *pResponse)
 	}
 	else if(pParent != nullptr)
 	{
-		// @TODO:pParentに対してエラーダイアログを表示.
+		// エラーダイアログ
+		ErrorDialog *pDialog = ErrorDialog::create();
+		pParent->addChild(pDialog);
 	}
 
 	if (pParent != nullptr)
