@@ -6,6 +6,7 @@
 #include "APIExecuter.h"
 #include "ScriptObject.h"
 #include "GameConfig.h"
+#include "APIResponse.h"
 
 // コンストラクタ
 GameScene::GameScene()
@@ -93,14 +94,14 @@ void GameScene::OnTimer(CallbackTimer * pInstance)
 // リザルト要求.
 void GameScene::RequestResult()
 {
-	APIExecuter::Result(this, TotalScore, CC_CALLBACK_2(GameScene::OnResultSuccess, this));
+	APIExecuter::Result(this, TotalScore, CC_CALLBACK_1(GameScene::OnResultSuccess, this));
 }
 
 // リザルト要求に成功した
-void GameScene::OnResultSuccess(int AfterPoint, int HighScore)
+void GameScene::OnResultSuccess(const ResultResponse &Response)
 {
 	// リザルト画面に遷移.
-	auto *pResultScene = ResultScene::create(TotalScore, AfterPoint, HighScore);
+	auto *pResultScene = ResultScene::create(TotalScore, Response.Point, Response.HighScore);
 	TransitionFade *pFade = TransitionFade::create(1.5f, pResultScene);
 	Director::getInstance()->replaceScene(pFade);
 }

@@ -7,17 +7,18 @@
 #include "ErrorDialog.h"
 
 // 認証.
-void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
+void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const AuthResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Auth, [Id](HttpConnection *pConnection)
 	{
 		pConnection->AddParameter("Id", Id);
 	}, [Callback](const JsonHelper &Json)
 	{
-		std::string Id = Json.GetString("Id");
-		int Point = Json.GetInt("Point");
-		int HighScore = Json.GetInt("HighScore");
-		Callback(Id, Point, HighScore);
+		AuthResponse Response;
+		Response.Id = Json.GetString("Id");
+		Response.Point = Json.GetInt("Point");
+		Response.HighScore = Json.GetInt("HighScore");
+		Callback(Response);
 	});
 }
 
@@ -41,7 +42,7 @@ void APIExecuter::ShopData(Node *pParent, const std::function<void(const std::ve
 }
 
 // 開始.
-void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(int, const std::string &)> &Callback)
+void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(const StartResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Start, [ItemIds](HttpConnection *pConnection)
 	{
@@ -52,14 +53,15 @@ void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const st
 		}
 	}, [Callback](const JsonHelper &Json)
 	{
-		int Point = Json.GetInt("Point");
-		std::string Script = Json.GetString("Script");
-		Callback(Point, Script);
+		StartResponse Response;
+		Response.Point = Json.GetInt("Point");
+		Response.Script = Json.GetString("Script");
+		Callback(Response);
 	});
 }
 
 // リザルト
-void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int, int)> &Callback)
+void APIExecuter::Result(Node *pParent, int Score, const std::function<void(const ResultResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Result, [Score](HttpConnection *pConnection)
 	{
@@ -67,10 +69,11 @@ void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int,
 		pConnection->AddParameter("Score", Score);
 	}, [Callback](const JsonHelper &Json)
 	{
-		int AfterPoint = Json.GetInt("Point");
-		int HighScore = Json.GetInt("HighScore");
+		ResultResponse Response;
+		Response.Point = Json.GetInt("Point");
+		Response.HighScore = Json.GetInt("HighScore");
 
-		Callback(AfterPoint, HighScore);
+		Callback(Response);
 	});
 }
 

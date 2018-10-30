@@ -7,6 +7,7 @@
 #include "ScriptObject.h"
 #include "CCLuaEngine.h"
 #include "GameConfig.h"
+#include "APIResponse.h"
 
 // ↓ラベルで全角文字を使えるようにするためのもの
 #pragma execution_character_set("utf-8")
@@ -113,21 +114,21 @@ void ShopScene::OnPressedStartButton(Ref *pSender)
 			ItemIds.push_back(pItem->GetItemData().Id);
 		}
 	}
-	APIExecuter::Start(this, ItemIds, CC_CALLBACK_2(ShopScene::OnStartSuccess, this));
+	APIExecuter::Start(this, ItemIds, CC_CALLBACK_1(ShopScene::OnStartSuccess, this));
 }
 
 // 開始ＡＰＩコールバック
-void ShopScene::OnStartSuccess(int Point, const std::string &Script)
+void ShopScene::OnStartSuccess(const StartResponse &Response)
 {	
 	// ポイントを反映.
-	UserData::SetPoint(Point);
+	UserData::SetPoint(Response.Point);
 
 	// スクリプト実行.
 	ScriptObject Obj;
-	if (Script != "")
+	if (Response.Script != "")
 	{
 		LuaEngine *pEngine = LuaEngine::defaultEngine();
-		pEngine->executeString(Script.c_str());
+		pEngine->executeString(Response.Script.c_str());
 
 		lua_State *pState = pEngine->getLuaStack()->getLuaState();
 		lua_getglobal(pState, "Execute");

@@ -178,6 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Anpan.h" />
     <ClInclude Include="..\Classes\AnpanSpawner.h" />
     <ClInclude Include="..\Classes\APIExecuter.h" />
+    <ClInclude Include="..\Classes\APIResponse.h" />
     <ClInclude Include="..\Classes\APIURLs.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\ErrorDialog.h" />

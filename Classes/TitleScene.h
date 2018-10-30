@@ -8,6 +8,7 @@ using namespace cocos2d;
 using namespace cocos2d::network;
 
 class FlashAnimationComponent;
+struct AuthResponse;
 
 /**
  * タイトル画面
@@ -29,7 +30,7 @@ private:
 	void RequestAuth();
 
 	// 認証に成功した
-	void OnAuthSuccess(const std::string &Id, int Point, int HighScore);
+	void OnAuthSuccess(const AuthResponse &Response);
 
 	// 次のシーンに遷移.
 	void MoveToNextScene();
