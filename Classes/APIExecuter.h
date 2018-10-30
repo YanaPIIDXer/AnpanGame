@@ -21,7 +21,7 @@ class APIExecuter
 public:
 
 	// 認証.
-	static void Auth(Node *pParent, const std::string &Id, const std::function<void(HttpResponse *)> &Callback);
+	static void Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback);
 
 	// ショップ情報.
 	static void ShopData(Node *pParent, const std::function<void(HttpResponse *)> &Callback);

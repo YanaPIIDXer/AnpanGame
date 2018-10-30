@@ -48,17 +48,12 @@ bool TitleScene::init()
 void TitleScene::RequestAuth()
 {
 	IdManager IdMgr;
-	APIExecuter::Auth(this, IdMgr.GetId(), CC_CALLBACK_1(TitleScene::OnAuthSuccess, this));
+	APIExecuter::Auth(this, IdMgr.GetId(), CC_CALLBACK_3(TitleScene::OnAuthSuccess, this));
 }
 
 // îFèÿÇ…ê¨å˜ÇµÇΩÅB
-void TitleScene::OnAuthSuccess(HttpResponse *pResponse)
+void TitleScene::OnAuthSuccess(const std::string &Id, int Point, int HighScore)
 {
-	std::vector<char> *pBuffer = pResponse->getResponseData();
-	JsonHelper Helper(pBuffer);
-	std::string Id = Helper.GetString("Id");
-	int Point = Helper.GetInt("Point");
-	int HighScore = Helper.GetInt("HighScore");
 	UserData::Set(Id, Point, HighScore);
 
 	MoveToNextScene();

@@ -2,13 +2,21 @@
 #include "HttpConnection.h"
 #include "APIURLs.h"
 #include "UserData.h"
+#include "JsonHelper.h"
 
 // 認証.
-void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(HttpResponse *)> &Callback)
+void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
 {
 	auto *pConnection = CreateConnection(pParent, APIURLs::Auth);
 	pConnection->AddParameter("Id", Id);
-	pConnection->Send(Callback);
+	pConnection->Send([Callback](HttpResponse *pResponse)
+	{
+		JsonHelper Json(pResponse->getResponseData());
+		std::string Id = Json.GetString("Id");
+		int Point = Json.GetInt("Point");
+		int HighScore = Json.GetInt("HighScore");
+		Callback(Id, Point, HighScore);
+	});
 }
 
 // ショップ情報.
