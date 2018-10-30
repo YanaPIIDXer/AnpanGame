@@ -31,7 +31,7 @@ public:
 	static void Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(int, const std::string &)> &Callback);
 
 	// ƒŠƒUƒ‹ƒg
-	static void Result(Node *pParent, int Score, const std::function<void(HttpResponse *)> &Callback);
+	static void Result(Node *pParent, int Score, const std::function<void(int, int)> &Callback);
 
 private:
 

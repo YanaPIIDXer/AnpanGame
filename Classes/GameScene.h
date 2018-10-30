@@ -62,7 +62,7 @@ private:
 	void RequestResult();
 
 	// ƒŠƒUƒ‹ƒg—v‹‚É¬Œ÷‚µ‚½
-	void OnResultSuccess(HttpResponse *pResponse);
+	void OnResultSuccess(int AfterPoint, int HighScore);
 
 };
 

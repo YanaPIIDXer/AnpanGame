@@ -2,7 +2,6 @@
 #include "AnpanSpawner.h"
 #include "TouchGuard.h"
 #include "UserData.h"
-#include "JsonHelper.h"
 #include "ResultScene.h"
 #include "APIExecuter.h"
 #include "ScriptObject.h"
@@ -93,16 +92,12 @@ void GameScene::OnTimer(CallbackTimer * pInstance)
 // リザルト要求.
 void GameScene::RequestResult()
 {
-	APIExecuter::Result(this, TotalScore, CC_CALLBACK_1(GameScene::OnResultSuccess, this));
+	APIExecuter::Result(this, TotalScore, CC_CALLBACK_2(GameScene::OnResultSuccess, this));
 }
 
 // リザルト要求に成功した
-void GameScene::OnResultSuccess(HttpResponse *pResponse)
+void GameScene::OnResultSuccess(int AfterPoint, int HighScore)
 {
-	JsonHelper Json(pResponse->getResponseData());
-	int AfterPoint = Json.GetInt("Point");
-	int HighScore = Json.GetInt("HighScore");
-
 	// リザルト画面に遷移.
 	auto *pResultScene = ResultScene::create(TotalScore, AfterPoint, HighScore);
 	TransitionFade *pFade = TransitionFade::create(1.5f, pResultScene);
