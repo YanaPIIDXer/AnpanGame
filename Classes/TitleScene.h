@@ -29,7 +29,7 @@ private:
 	void RequestAuth();
 
 	// ”FØ‚É¬Œ÷‚µ‚½
-	void OnAuthSuccess(HttpResponse *pResponse);
+	void OnAuthSuccess(const std::string &Id, int Point, int HighScore);
 
 	// Ÿ‚ÌƒV[ƒ“‚É‘JˆÚ.
 	void MoveToNextScene();

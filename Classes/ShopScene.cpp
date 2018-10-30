@@ -3,7 +3,6 @@
 #include "GameScene.h"
 #include "UserData.h"
 #include "APIExecuter.h"
-#include "JsonHelper.h"
 #include "ShopItem.h"
 #include "ScriptObject.h"
 #include "CCLuaEngine.h"
@@ -49,15 +48,12 @@ void ShopScene::RequestShopData()
 }
 
 // ショップ情報リクエストコールバック
-void ShopScene::OnResponseShopData(HttpResponse *pResponse)
+void ShopScene::OnResponseShopData(const std::vector<ShopItem *> &ItemList)
 {
-	JsonHelper ShopInfo(pResponse->getResponseData());
-	int Length = ShopInfo.GetArrayLength();
 	int ScreenHeight = Director::getInstance()->getVisibleSize().height;
-	for (int i = 0; i < Length; i++)
+	for (int i = 0; i < ItemList.size(); i++)
 	{
-		JsonHelper Item = ShopInfo[i];
-		ShopItem *pItem = ShopItem::create(Item);
+		ShopItem *pItem = ItemList[i];
 		pItem->setPosition(Vec2(100, 320 - ((ShopItem::Height + 20) * i)));
 		pItem->SetTouchCallback(CC_CALLBACK_0(ShopScene::OnShopItemSelected, this));
 		addChild(pItem);
@@ -116,20 +112,16 @@ void ShopScene::OnPressedStartButton(Ref *pSender)
 			ItemIds.push_back(pItem->GetItemData().Id);
 		}
 	}
-	APIExecuter::Start(this, ItemIds, CC_CALLBACK_1(ShopScene::OnStartSuccess, this));
+	APIExecuter::Start(this, ItemIds, CC_CALLBACK_2(ShopScene::OnStartSuccess, this));
 }
 
 // 開始ＡＰＩコールバック
-void ShopScene::OnStartSuccess(HttpResponse *pResponse)
-{
-	JsonHelper Json(pResponse->getResponseData());
-	
+void ShopScene::OnStartSuccess(int Point, const std::string &Script)
+{	
 	// ポイントを反映.
-	int Point = Json.GetInt("Point");
 	UserData::SetPoint(Point);
 
 	// スクリプト実行.
-	std::string Script = Json.GetString("Script");
 	ScriptObject Obj;
 	if (Script != "")
 	{
