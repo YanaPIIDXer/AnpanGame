@@ -5,6 +5,7 @@
 #include "ResultScene.h"
 #include "APIExecuter.h"
 #include "ScriptObject.h"
+#include "GameConfig.h"
 
 // コンストラクタ
 GameScene::GameScene()
@@ -26,14 +27,14 @@ bool GameScene::init(const ScriptObject &Script)
 	});
 	addChild(pSpawner);
 
-	pScoreLabel = Label::createWithTTF("Score:0", "fonts/Marker Felt.ttf", 24);
+	pScoreLabel = Label::createWithTTF("Score:0", GameConfig::FontPath, 24);
 	pScoreLabel->setPosition(Vec2(100, 450));
 	addChild(pScoreLabel);
 
 	// タイマー関係.
 	pTimer = CallbackTimer::create(Script.GetTime(), this, false);
 	addChild(pTimer);
-	pTimerLabel = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
+	pTimerLabel = Label::createWithTTF("", GameConfig::FontPath, 24);
 	pTimerLabel->setPosition(Vec2(600, 450));
 	addChild(pTimerLabel);
 

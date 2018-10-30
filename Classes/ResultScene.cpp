@@ -2,13 +2,14 @@
 #include "TouchGuard.h"
 #include "ShopScene.h"
 #include "UserData.h"
+#include "GameConfig.h"
 
 // ‰Šú‰».
 bool ResultScene::init(int Score, int AfterPoint, int HighScore)
 {
 	if (!Scene::init()) { return false; }
 
-	Label *pTopLabel = Label::createWithTTF("Result", "fonts/msgothic.ttc", 80);
+	Label *pTopLabel = Label::createWithTTF("Result", GameConfig::FontPath, 80);
 	pTopLabel->setPosition(Vec2(350, 400));
 	addChild(pTopLabel);
 
@@ -17,7 +18,7 @@ bool ResultScene::init(int Score, int AfterPoint, int HighScore)
 		std::stringstream Stream;
 		Stream << "Score:" << Score;
 
-		Label *pLabel = Label::createWithTTF(Stream.str(), "fonts/msgothic.ttc", 60);
+		Label *pLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 60);
 		pLabel->setPosition(Vec2(330, 300));
 		addChild(pLabel);
 	}
@@ -28,7 +29,7 @@ bool ResultScene::init(int Score, int AfterPoint, int HighScore)
 		Stream << "Point;" << UserData::GetPoint();
 		Stream << " -> " << AfterPoint;
 
-		Label *pLabel = Label::createWithTTF(Stream.str(), "fonts/msgothic.ttc", 60);
+		Label *pLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 60);
 		pLabel->setPosition(Vec2(330, 200));
 		addChild(pLabel);
 	}
@@ -38,7 +39,7 @@ bool ResultScene::init(int Score, int AfterPoint, int HighScore)
 		std::stringstream Stream;
 		Stream << "HighScore:" << HighScore;
 		
-		Label *pLabel = Label::createWithTTF(Stream.str(), "fonts/msgothic.ttc", 60);
+		Label *pLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 60);
 		pLabel->setPosition(Vec2(330, 100));
 		addChild(pLabel);
 	}

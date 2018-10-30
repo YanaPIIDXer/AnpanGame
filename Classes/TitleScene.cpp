@@ -4,6 +4,7 @@
 #include "UserData.h"
 #include "IdManager.h"
 #include "APIExecuter.h"
+#include "GameConfig.h"
 
 // ‰Šú‰».
 bool TitleScene::init()
@@ -13,12 +14,12 @@ bool TitleScene::init()
 	LayerColor *pBg = LayerColor::create(Color4B(255, 255, 255, 255));
 	addChild(pBg);
 
-	Label *pTitleLabel = Label::createWithTTF("Anpan Game", "fonts/Marker Felt.ttf", 80);
+	Label *pTitleLabel = Label::createWithTTF("Anpan Game", GameConfig::FontPath, 80);
 	pTitleLabel->setColor(Color3B(0, 0, 0));
 	pTitleLabel->setPosition(Vec2(350, 400));
 	addChild(pTitleLabel);
 
-	pTouchToStart = Label::createWithTTF("Touch to Start", "fonts/Marker Felt.ttf", 24);
+	pTouchToStart = Label::createWithTTF("Touch to Start", GameConfig::FontPath, 24);
 	pTouchToStart->setColor(Color3B(0, 0, 0));
 	pTouchToStart->setPosition(Vec2(350, 150));
 	addChild(pTouchToStart);

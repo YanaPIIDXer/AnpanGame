@@ -1,5 +1,6 @@
 #include "ShopItem.h"
 #include "JsonHelper.h"
+#include "GameConfig.h"
 
 const int ShopItem::Height = 70;
 const Color3B ShopItem::DefaultColor = Color3B(255, 255, 255);
@@ -34,7 +35,7 @@ bool ShopItem::init()
 	addChild(pSprite);
 
 	// アイテム名.
-	Label *pItemName = Label::createWithTTF(ItemData.Name, "fonts/Marker Felt.ttf", 24);
+	Label *pItemName = Label::createWithTTF(ItemData.Name, GameConfig::FontPath, 24);
 	pItemName->setAnchorPoint(Vec2::ZERO);
 	pItemName->setPosition(20, Height * 0.5f);
 	pItemName->setColor(Color3B(0, 0, 0));
@@ -43,7 +44,7 @@ bool ShopItem::init()
 	// 値段.
 	std::stringstream Stream;
 	Stream << ItemData.Price << "Point";
-	Label *pPriceLabel = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", 24);
+	Label *pPriceLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 24);
 	pPriceLabel->setAnchorPoint(Vec2::ZERO);
 	pPriceLabel->setPosition(300, Height * 0.5f);
 	pPriceLabel->setColor(Color3B(0, 0, 0));
