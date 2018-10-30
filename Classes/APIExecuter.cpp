@@ -44,5 +44,6 @@ void APIExecuter::Result(Node *pParent, int Score, const std::function<void(Http
 HttpConnection *APIExecuter::CreateConnection(Node *pParent, const std::string &URL)
 {
 	auto *pConnection = HttpConnection::create(URL);
+	pParent->addChild(pConnection);
 	return pConnection;
 }
