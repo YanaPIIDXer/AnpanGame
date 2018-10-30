@@ -4,6 +4,7 @@
 #include "UserData.h"
 #include "JsonHelper.h"
 #include "ShopItem.h"
+#include "ErrorDialog.h"
 
 // îFèÿ.
 void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
@@ -83,6 +84,12 @@ void APIExecuter::CreateConnection(Node *pParent, const std::string &URL, const 
 	pConnection->Send([pParent, JsonCallback](HttpResponse *pResponse)
 	{
 		JsonHelper Json(pResponse->getResponseData());
+		if (!Json.IsValid())
+		{
+			ErrorDialog *pErrorDialog = ErrorDialog::create();
+			pParent->addChild(pErrorDialog);
+			return;
+		}
 
 		JsonCallback(Json);
 	});
