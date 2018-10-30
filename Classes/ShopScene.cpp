@@ -49,15 +49,12 @@ void ShopScene::RequestShopData()
 }
 
 // ショップ情報リクエストコールバック
-void ShopScene::OnResponseShopData(HttpResponse *pResponse)
+void ShopScene::OnResponseShopData(const std::vector<ShopItem *> &ItemList)
 {
-	JsonHelper ShopInfo(pResponse->getResponseData());
-	int Length = ShopInfo.GetArrayLength();
 	int ScreenHeight = Director::getInstance()->getVisibleSize().height;
-	for (int i = 0; i < Length; i++)
+	for (int i = 0; i < ItemList.size(); i++)
 	{
-		JsonHelper Item = ShopInfo[i];
-		ShopItem *pItem = ShopItem::create(Item);
+		ShopItem *pItem = ItemList[i];
 		pItem->setPosition(Vec2(100, 320 - ((ShopItem::Height + 20) * i)));
 		pItem->SetTouchCallback(CC_CALLBACK_0(ShopScene::OnShopItemSelected, this));
 		addChild(pItem);

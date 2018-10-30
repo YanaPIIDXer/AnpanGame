@@ -11,6 +11,7 @@ using namespace cocos2d;
 using namespace cocos2d::network;
 
 class HttpConnection;
+class ShopItem;
 
 /**
  * WebAPIを叩くクラス
@@ -24,7 +25,7 @@ public:
 	static void Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback);
 
 	// ショップ情報.
-	static void ShopData(Node *pParent, const std::function<void(HttpResponse *)> &Callback);
+	static void ShopData(Node *pParent, const std::function<void(const std::vector<ShopItem *> &)> &Callback);
 
 	// 開始.
 	static void Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(HttpResponse *)> &Callback);

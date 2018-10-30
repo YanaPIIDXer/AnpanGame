@@ -45,7 +45,7 @@ private:
 	void RequestShopData();
 
 	// ショップ情報リクエストコールバック
-	void OnResponseShopData(HttpResponse *pResponse);
+	void OnResponseShopData(const std::vector<ShopItem *> &ItemList);
 
 	// ショップアイテムを選択した。
 	void OnShopItemSelected();

@@ -3,6 +3,7 @@
 #include "APIURLs.h"
 #include "UserData.h"
 #include "JsonHelper.h"
+#include "ShopItem.h"
 
 // 認証.
 void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function<void(const std::string &, int, int)> &Callback)
@@ -20,10 +21,23 @@ void APIExecuter::Auth(Node *pParent, const std::string &Id, const std::function
 }
 
 // ショップ情報.
-void APIExecuter::ShopData(Node *pParent, const std::function<void(HttpResponse *)> &Callback)
+void APIExecuter::ShopData(Node *pParent, const std::function<void(const std::vector<ShopItem *> &)> &Callback)
 {
 	auto *pConnection = CreateConnection(pParent, APIURLs::ShopData);
-	pConnection->Send(Callback);
+	pConnection->Send([Callback](HttpResponse *pResponse) {
+		std::vector<ShopItem *> ItemList;
+		JsonHelper ShopInfo(pResponse->getResponseData());
+		int Length = ShopInfo.GetArrayLength();
+		for (int i = 0; i < Length; i++)
+		{
+			JsonHelper Item = ShopInfo[i];
+			ShopItem *pItem = ShopItem::create(Item);
+			
+			ItemList.push_back(pItem);
+		}
+
+		Callback(ItemList);
+	});
 }
 
 // 開始.
