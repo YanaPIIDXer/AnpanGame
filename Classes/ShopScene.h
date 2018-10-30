@@ -12,6 +12,8 @@ using namespace cocos2d::network;
 #include "ui/CocosGUI.h"
 using namespace ui;
 
+struct StartResponse;
+
 /**
  * ショップ画面.
  */
@@ -57,7 +59,7 @@ private:
 	void OnPressedStartButton(Ref *pSender);
 
 	// 開始ＡＰＩコールバック
-	void OnStartSuccess(int Point, const std::string &Script);
+	void OnStartSuccess(const StartResponse &Response);
 
 };
 

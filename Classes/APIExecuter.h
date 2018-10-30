@@ -31,7 +31,7 @@ public:
 	static void ShopData(Node *pParent, const std::function<void(const std::vector<ShopItem *> &)> &Callback);
 
 	// 開始.
-	static void Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(int, const std::string &)> &Callback);
+	static void Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(const StartResponse &)> &Callback);
 
 	// リザルト
 	static void Result(Node *pParent, int Score, const std::function<void(int, int)> &Callback);

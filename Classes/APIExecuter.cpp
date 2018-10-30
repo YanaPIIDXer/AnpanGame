@@ -42,7 +42,7 @@ void APIExecuter::ShopData(Node *pParent, const std::function<void(const std::ve
 }
 
 // ŠJŽn.
-void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(int, const std::string &)> &Callback)
+void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const std::function<void(const StartResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Start, [ItemIds](HttpConnection *pConnection)
 	{
@@ -53,9 +53,10 @@ void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const st
 		}
 	}, [Callback](const JsonHelper &Json)
 	{
-		int Point = Json.GetInt("Point");
-		std::string Script = Json.GetString("Script");
-		Callback(Point, Script);
+		StartResponse Response;
+		Response.Point = Json.GetInt("Point");
+		Response.Script = Json.GetString("Script");
+		Callback(Response);
 	});
 }
 

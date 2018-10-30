@@ -11,4 +11,11 @@ struct AuthResponse
 	int HighScore;
 };
 
+// StartAPI–ß‚è’l.
+struct StartResponse
+{
+	int Point;
+	std::string Script;
+};
+
 #endif		// #ifndef __APIRESPONSE_H__
