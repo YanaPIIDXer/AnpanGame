@@ -61,7 +61,7 @@ void APIExecuter::Start(Node *pParent, const std::vector<int> &ItemIds, const st
 }
 
 // ƒŠƒUƒ‹ƒg
-void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int, int)> &Callback)
+void APIExecuter::Result(Node *pParent, int Score, const std::function<void(const ResultResponse &)> &Callback)
 {
 	CreateConnection(pParent, APIURLs::Result, [Score](HttpConnection *pConnection)
 	{
@@ -69,10 +69,11 @@ void APIExecuter::Result(Node *pParent, int Score, const std::function<void(int,
 		pConnection->AddParameter("Score", Score);
 	}, [Callback](const JsonHelper &Json)
 	{
-		int AfterPoint = Json.GetInt("Point");
-		int HighScore = Json.GetInt("HighScore");
+		ResultResponse Response;
+		Response.Point = Json.GetInt("Point");
+		Response.HighScore = Json.GetInt("HighScore");
 
-		Callback(AfterPoint, HighScore);
+		Callback(Response);
 	});
 }
 

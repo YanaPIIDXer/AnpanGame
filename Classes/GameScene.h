@@ -10,6 +10,7 @@ class AnpanSpawner;
 using namespace cocos2d::network;
 
 class ScriptObject;
+struct ResultResponse;
 
 /**
  * ゲーム画面.
@@ -62,7 +63,7 @@ private:
 	void RequestResult();
 
 	// リザルト要求に成功した
-	void OnResultSuccess(int AfterPoint, int HighScore);
+	void OnResultSuccess(const ResultResponse &Response);
 
 };
 

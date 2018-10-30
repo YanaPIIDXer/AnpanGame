@@ -18,4 +18,11 @@ struct StartResponse
 	std::string Script;
 };
 
+// ResultAPI–ß‚è’l.
+struct ResultResponse
+{
+	int Point;
+	int HighScore;
+};
+
 #endif		// #ifndef __APIRESPONSE_H__
