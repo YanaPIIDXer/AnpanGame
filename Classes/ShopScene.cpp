@@ -3,7 +3,6 @@
 #include "GameScene.h"
 #include "UserData.h"
 #include "APIExecuter.h"
-#include "JsonHelper.h"
 #include "ShopItem.h"
 #include "ScriptObject.h"
 #include "CCLuaEngine.h"
@@ -113,20 +112,16 @@ void ShopScene::OnPressedStartButton(Ref *pSender)
 			ItemIds.push_back(pItem->GetItemData().Id);
 		}
 	}
-	APIExecuter::Start(this, ItemIds, CC_CALLBACK_1(ShopScene::OnStartSuccess, this));
+	APIExecuter::Start(this, ItemIds, CC_CALLBACK_2(ShopScene::OnStartSuccess, this));
 }
 
 // 開始ＡＰＩコールバック
-void ShopScene::OnStartSuccess(HttpResponse *pResponse)
-{
-	JsonHelper Json(pResponse->getResponseData());
-	
+void ShopScene::OnStartSuccess(int Point, const std::string &Script)
+{	
 	// ポイントを反映.
-	int Point = Json.GetInt("Point");
 	UserData::SetPoint(Point);
 
 	// スクリプト実行.
-	std::string Script = Json.GetString("Script");
 	ScriptObject Obj;
 	if (Script != "")
 	{

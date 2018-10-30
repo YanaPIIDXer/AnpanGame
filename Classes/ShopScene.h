@@ -57,7 +57,7 @@ private:
 	void OnPressedStartButton(Ref *pSender);
 
 	// 開始ＡＰＩコールバック
-	void OnStartSuccess(HttpResponse *pResponse);
+	void OnStartSuccess(int Point, const std::string &Script);
 
 };
 
