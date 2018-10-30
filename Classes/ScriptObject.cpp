@@ -1,9 +1,10 @@
 #include "ScriptObject.h"
 #include "tolua_fix.h"
+#include "GameConfig.h"
 
 // コンストラクタ
 ScriptObject::ScriptObject()
-	: Time(60)
+	: Time(GameConfig::GameTime)
 	, ScoreRate(1.0f)
 {
 }

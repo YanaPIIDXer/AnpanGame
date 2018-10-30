@@ -14,6 +14,9 @@ public:
 	// フォントパス.
 	static const std::string FontPath;
 
+	// ゲーム時間デフォルト値.
+	static const int GameTime;
+
 };
 
 #endif		// #ifndef __GAMECONFIG_H__
