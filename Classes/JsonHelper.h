@@ -26,6 +26,9 @@ public:
 	// 文字列取得.
 	std::string GetString(const std::string &Name) const;
 
+	// オブジェクト取得.
+	JsonHelper GetObject(const std::string &Name) const;
+
 	// 配列長取得.
 	int GetArrayLength() const;
 

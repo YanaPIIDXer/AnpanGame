@@ -21,6 +21,14 @@ std::string JsonHelper::GetString(const std::string &Name) const
 	return Value;
 }
 
+// オブジェクト取得.
+JsonHelper JsonHelper::GetObject(const std::string &Name) const
+{
+	Json *pObj = Json_getItem(pJson, Name.c_str());
+	JsonHelper Obj(pObj);
+	return Obj;
+}
+
 // 配列長取得.
 int JsonHelper::GetArrayLength() const
 {
