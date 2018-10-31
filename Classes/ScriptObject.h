@@ -30,7 +30,13 @@ public:
 	// 登録.
 	static int Register(lua_State *pState);
 
+	// スクリプト実行.
+	static ScriptObject Execute(const std::string &Script);
+
 private:
+
+	// スクリプト上で実行する関数名.
+	static const std::string ScriptFunctionName;
 
 	// 時間.
 	int Time;

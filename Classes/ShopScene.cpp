@@ -5,7 +5,6 @@
 #include "APIExecuter.h"
 #include "ShopItem.h"
 #include "ScriptObject.h"
-#include "CCLuaEngine.h"
 #include "GameConfig.h"
 #include "APIResponse.h"
 
@@ -134,13 +133,7 @@ void ShopScene::OnStartSuccess(const StartResponse &Response)
 	ScriptObject Obj;
 	if (Response.Script != "")
 	{
-		LuaEngine *pEngine = LuaEngine::defaultEngine();
-		pEngine->executeString(Response.Script.c_str());
-
-		lua_State *pState = pEngine->getLuaStack()->getLuaState();
-		lua_getglobal(pState, "Execute");
-		tolua_pushusertype(pState, &Obj, "ScriptObject");
-		lua_pcall(pState, 1, 1, 0);
+		Obj = ScriptObject::Execute(Response.Script);
 	}
 
 	// ƒV[ƒ“‘JˆÚ.

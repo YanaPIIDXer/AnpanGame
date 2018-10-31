@@ -1,6 +1,9 @@
 #include "ScriptObject.h"
 #include "tolua_fix.h"
 #include "GameConfig.h"
+#include "CCLuaEngine.h"
+
+const std::string ScriptObject::ScriptFunctionName = "Execute";
 
 // コンストラクタ
 ScriptObject::ScriptObject()
@@ -51,4 +54,20 @@ int ScriptObject::Register(lua_State *pState)
 	}
 	tolua_endmodule(pState);
 	return 1;
+}
+
+// スクリプト実行.
+ScriptObject ScriptObject::Execute(const std::string &Script)
+{
+	LuaEngine *pEngine = LuaEngine::defaultEngine();
+	pEngine->executeString(Script.c_str());
+
+	lua_State *pState = pEngine->getLuaStack()->getLuaState();
+	lua_getglobal(pState, ScriptFunctionName.c_str());
+
+	ScriptObject Obj;
+	tolua_pushusertype(pState, &Obj, "ScriptObject");
+	lua_pcall(pState, 1, 1, 0);
+
+	return Obj;
 }
