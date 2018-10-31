@@ -7,7 +7,7 @@ using namespace cocos2d;
 /**
  * 点滅アニメーションコンポーネント
  */
-class FlashAnimationComponent : public Node
+class FlashAnimationComponent : public Component
 {
 
 public:
@@ -18,8 +18,8 @@ public:
 	// デストラクタ
 	virtual ~FlashAnimationComponent() {}
 
-	// 初期化。
-	virtual bool init() override;
+	// addComponentされた。
+	virtual void onEnter() override;
 
 	// 更新.
 	virtual void update(float frame) override;
