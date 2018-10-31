@@ -46,7 +46,7 @@ bool ShopItem::init()
 	Stream << ItemData.Price << "Point";
 	Label *pPriceLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 24);
 	pPriceLabel->setAnchorPoint(Vec2::ZERO);
-	pPriceLabel->setPosition(300, Height * 0.5f);
+	pPriceLabel->setPosition(270, Height * 0.5f);
 	pPriceLabel->setColor(Color3B(0, 0, 0));
 	addChild(pPriceLabel);
 
