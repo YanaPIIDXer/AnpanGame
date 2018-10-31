@@ -23,6 +23,13 @@ bool ShopScene::init()
 	UpdatePointLabel(UserData::GetPoint());
 	addChild(pPointLabel);
 
+	// ハイスコア表示ラベル
+	std::stringstream Stream;
+	Stream << "HighScore:" << UserData::GetHighScore();
+	Label *pHighScoreLabel = Label::createWithTTF(Stream.str(), GameConfig::FontPath, 24);
+	pHighScoreLabel->setPosition(Vec2(100, 450));
+	addChild(pHighScoreLabel);
+
 	// 開始ボタン
 	pStartButton = Button::create("Button1.png");
 	pStartButton->setTitleText("ゲーム開始");
