@@ -26,7 +26,7 @@ bool TitleScene::init()
 	addChild(pTouchToStart);
 
 	pFlash = FlashAnimationComponent::create();
-	pTouchToStart->addChild(pFlash);
+	pTouchToStart->addComponent(pFlash);
 
 	// タッチイベント
 	pTouchEvent = EventListenerTouchOneByOne::create();

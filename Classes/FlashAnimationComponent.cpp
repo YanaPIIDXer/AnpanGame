@@ -8,14 +8,15 @@ FlashAnimationComponent::FlashAnimationComponent()
 {
 }
 
-bool FlashAnimationComponent::init()
+// addComponent‚³‚ê‚½B
+void FlashAnimationComponent::onEnter()
 {
-	if (!Node::init()) { return false; }
+	Component::onEnter();
 
-	scheduleUpdate();
-	return true;
+	getOwner()->scheduleUpdate();
 }
 
+// XV.
 void FlashAnimationComponent::update(float frame)
 {
 	if (CurrentAnimMode == AnimMode::FadeIn)
@@ -36,5 +37,5 @@ void FlashAnimationComponent::update(float frame)
 			CurrentAnimMode = AnimMode::FadeIn;
 		}
 	}
-	getParent()->setOpacity(AlphaValue);
+	getOwner()->setOpacity(AlphaValue);
 }
